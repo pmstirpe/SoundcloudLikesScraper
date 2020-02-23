@@ -7,11 +7,9 @@ from xlwt import Workbook
 path_to_chromedriver = r"C:\Users\Peter Stirpe\Desktop\chromedriver.exe"
 browser = webdriver.Chrome(executable_path = path_to_chromedriver)
 
+oldTime = time.perf_counter()
+
 browser.get("https://soundcloud.com/peter_stirpe/likes")
-
-
-
-
 last_height = browser.execute_script("return document.body.scrollHeight")
 # counter = 0
 
@@ -38,8 +36,6 @@ while True:
 
 
 song = browser.find_elements_by_xpath('//div[@class="soundTitle__usernameTitleContainer"]') 
-
-
 songs=[]
 
 num_items = len(song)
@@ -53,7 +49,6 @@ for i in range(num_items):
 #         f.write(songs[i])
 #         f.write('\n')
         
-
 # Workbook is created 
 wb = Workbook() 
   
@@ -67,7 +62,7 @@ for i in range(num_items):
     sheet1.write(i+1,1,pair[1].strip())
     
 wb.save('Soundcloud Likes.xls') 
-
+print("TOTAL TIME: " + str(time.perf_counter() - oldTime))
 
 
 browser.close()
