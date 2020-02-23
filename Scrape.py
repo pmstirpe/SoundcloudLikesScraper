@@ -3,6 +3,7 @@ import time
 import io
 import xlwt 
 from xlwt import Workbook 
+from datetime import datetime
 
 path_to_chromedriver = r"C:\Users\Peter Stirpe\Desktop\SoundcloudLikesScraper\chromedriver.exe"
 browser = webdriver.Chrome(executable_path = path_to_chromedriver)
@@ -42,6 +43,8 @@ num_items = len(song)
 for i in range(num_items):
     songs.append(song[i].text.replace('\n',' : '))
 
+
+
 #####     Print to a txt file
 
 # with io.open("output.txt", "w", encoding="utf-8") as f:
@@ -49,6 +52,8 @@ for i in range(num_items):
 #         f.write(songs[i])
 #         f.write('\n')
         
+
+
 # Workbook is created 
 wb = Workbook() 
   
@@ -61,7 +66,9 @@ for i in range(num_items):
     sheet1.write(i+1,0,pair[0].strip())
     sheet1.write(i+1,1,pair[1].strip())
     
-wb.save('Soundcloud Likes.xls') 
+#### Save results to a new csv named based on date    
+d = datetime.today()
+wb.save('SoundcloudLikes~' + str(d.day) + '-' + str(d.month) + '-' + str(d.year) + '.xls') 
 print("TOTAL TIME: " + str(time.perf_counter() - oldTime))
 
 
