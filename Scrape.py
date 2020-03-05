@@ -21,7 +21,7 @@ while True:
     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     # Wait to load the page.
-    time.sleep(2)
+    time.sleep(1)
 
         # Calculate new scroll height and compare with last scroll height.
     new_height = browser.execute_script("return document.body.scrollHeight")
@@ -29,10 +29,6 @@ while True:
     if new_height == last_height:
 
         break
-    # if counter > 15:
-    #     break
-
-    # counter = counter + 1
     last_height = new_height
 
 
@@ -42,16 +38,6 @@ songs=[]
 num_items = len(song)
 for i in range(num_items):
     songs.append(song[i].text.replace('\n',' : '))
-
-
-
-#####     Print to a txt file
-
-# with io.open("output.txt", "w", encoding="utf-8") as f:
-#     for i in range(len(songs)):
-#         f.write(songs[i])
-#         f.write('\n')
-        
 
 
 # Workbook is created 
@@ -68,7 +54,9 @@ for i in range(num_items):
     
 #### Save results to a new csv named based on date    
 d = datetime.today()
-wb.save('SoundcloudLikes~' + str(d.day) + '-' + str(d.month) + '-' + str(d.year) + '.xls') 
+timestr = time.strftime("%Y%m%d-%H%M%S")
+wb.save('SoundcloudLikes~' + timestr + '.xls') 
+#wb.save('SoundcloudLikes~' + str(d.month) + '-' + str(d.day) + '-' + str(d.year) + '-' + str(d.timestamp) + '.xls') 
 print("TOTAL TIME: " + str(time.perf_counter() - oldTime))
 
 
