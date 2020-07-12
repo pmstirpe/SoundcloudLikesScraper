@@ -5,6 +5,7 @@ import xlwt
 from xlwt import Workbook 
 from datetime import datetime
 
+
 path_to_chromedriver = r"C:\Users\Peter Stirpe\Desktop\SoundcloudLikesScraper\chromedriver.exe"
 browser = webdriver.Chrome(executable_path = path_to_chromedriver)
 
@@ -55,9 +56,10 @@ for i in range(num_items):
 #### Save results to a new csv named based on date    
 d = datetime.today()
 timestr = time.strftime("%Y%m%d-%H%M%S")
-wb.save('SoundcloudLikes~' + timestr + '.xls') 
-#wb.save('SoundcloudLikes~' + str(d.month) + '-' + str(d.day) + '-' + str(d.year) + '-' + str(d.timestamp) + '.xls') 
-print("TOTAL TIME: " + str(time.perf_counter() - oldTime))
+fileName = 'SoundcloudLikes~' + timestr + '.csv'
+wb.save(fileName) 
+#wb.save('SoundcloudLikes~' + str(d.month) + '-' + str(d.day) + '-' + str(d.year) + '-' + str(d.timestamp) + '.csv') 
+print(fileName + "SAVED |" "IN: " + str(time.perf_counter() - oldTime))
 
 
 browser.close()

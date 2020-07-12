@@ -1,14 +1,22 @@
 # Reading an excel file using Python 
-import xlrd 
+import xlrd
+import LoadFiles 
+import io
 
 # List comparison  
 def Diff(li1, li2): 
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2] 
     return li_dif 
 
+FILESBITCH = LoadFiles.init()
+
+print("Comparing files")
+print("NEW: " + FILESBITCH[1])
+print("OLD: " + FILESBITCH[0])
+
 # Give the location of the file 
-locOLD = "SoundcloudLikes~23-2-2020.xls"
-locNEW = "SoundcloudLikes~3-4-2020.xls"
+locOLD = FILESBITCH[0]
+locNEW = FILESBITCH[1]
   
 # open both workbooks
 wbOLD = xlrd.open_workbook(locOLD) 
@@ -32,6 +40,8 @@ for i in range(1,sheetNEW.nrows):
     songListNEW.append(artist + " " + song)
 
 differnce = Diff(songListOLD,songListNEW)
+print("There are " + str(len(differnce)) + " differences between files")
 
-for line in differnce:
-    print (line)
+with io.open("output.txt", "w", encoding="utf-8") as f:
+    for line in differnce:
+        f.write(line + "\n")
